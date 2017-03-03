@@ -14,5 +14,21 @@ Note that the answer must be a substring, "pwke" is a subsequence and not a subs
 */
 
 int lengthOfLongestSubstring(char* s) {
+    char *end = s, *tmp;
+    char *addrtbl[128] = {NULL};
+    int len = 0;
     
+    while (*end) {
+        tmp = addrtbl[*end];
+        addrtbl[*end] = end;
+        
+        if (tmp >= s) {
+            len = ((end - s) > len) ? (end - s) : len;
+            s = tmp + 1;
+        }
+        end ++;
+    }
+    len = ((end - s) > len) ? (end - s) : len;
+    
+    return len;
 }
